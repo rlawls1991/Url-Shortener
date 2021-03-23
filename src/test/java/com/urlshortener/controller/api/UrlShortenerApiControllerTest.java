@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urlshortener.common.RestDocsConfiguration;
 import com.urlshortener.controller.dto.UrlShortenerParamDto;
 import com.urlshortener.doamin.UrlShortener;
+import com.urlshortener.doamin.module.UrlEncoder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -47,6 +47,7 @@ public class UrlShortenerApiControllerTest {
         UrlShortenerParamDto paramDto = UrlShortenerParamDto.mockMvcUrlShortenerDto()
                 .url(TEST_URL)
                 .build();
+        String urlEncoder = UrlEncoder.encoding(1L);
 
         // When
         ResultActions perform = mockMvc.perform(post("/api/url")
@@ -59,7 +60,7 @@ public class UrlShortenerApiControllerTest {
         perform.andExpect(status().isCreated())
                 .andExpect(jsonPath("originalUrl").exists())
                 .andExpect(jsonPath("shortUrl").exists())
-                .andExpect(jsonPath("shortKey").exists())
+                .andExpect(jsonPath("shortKey").value(urlEncoder))
                 .andExpect(jsonPath("searchCount").exists())
                 .andDo(document("shortURL 생성"))
                 .andDo(print())

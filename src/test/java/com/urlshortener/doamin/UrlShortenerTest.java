@@ -13,7 +13,7 @@ public class UrlShortenerTest {
 
 
     @Test
-    @DisplayName("UrlShortener에서 조회가 1이 증가하였는가")
+    @DisplayName("UrlShortener에서 조회가 증가하였는가")
     public void addUrlShortener() {
         UrlShortener urlShortener = UrlShortener.mockMvcUrlShortener()
                 .url(TEST_URL)
