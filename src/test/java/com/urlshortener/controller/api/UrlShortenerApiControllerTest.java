@@ -58,7 +58,7 @@ public class UrlShortenerApiControllerTest {
 
         // Then
         perform.andExpect(status().isCreated())
-                .andExpect(jsonPath("originalUrl").exists())
+                .andExpect(jsonPath("originalUrl").value(paramDto.getUrl()))
                 .andExpect(jsonPath("shortUrl").exists())
                 .andExpect(jsonPath("shortKey").value(urlEncoder))
                 .andExpect(jsonPath("searchCount").exists())
