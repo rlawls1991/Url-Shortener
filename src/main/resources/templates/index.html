@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#sendUrl').on('click', function (e) {
+            sendUrlAjax();
+        });
+    });
+
+    function sendUrlAjax() {
+        let data = {'url': $('#inputUrl').val()};
+
+        $.ajax({
+            url: '/api/url',
+            data: JSON.stringify(data),
+            method: 'post',
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (data) {
+
+            console.log(data);
+            console.log(data.shortUrl);
+            console.log(data.searchCount);
+
+            $('#resultShortUrl').val(data.shortUrl);
+            $('#searchCount').val(data.searchCount);
+        });
+    }
+</script>
+<body>
+    <div>
+        <h3>URL을 입력해주세요</h3>
+    </div>
+    <input type="text" id="inputUrl">
+    <button id="sendUrl">확인</button>
+
+    <div>
+        <h3>shortUrl </h3>
+        <input type="text" id="resultShortUrl" readonly>
+
+        <h3>요청횟수 </h3>
+        <input type="text" id="searchCount" readonly>
+    </div>
+</body>
+</html>
