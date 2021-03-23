@@ -94,3 +94,7 @@ compileQuerydsl{
 configurations {
 	querydsl.extendsFrom compileClasspath
 }
+
+
+apply plugin: 'application'
+mainClassName = 'com.urlshortener.UrlShortenerApplication'

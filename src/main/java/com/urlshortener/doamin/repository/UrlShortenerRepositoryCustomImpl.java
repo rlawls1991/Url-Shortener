@@ -16,24 +16,29 @@ public class UrlShortenerRepositoryCustomImpl implements UrlShortenerRepositoryC
     private final JPAQueryFactory query;
 
     @Override
-    public UrlShortenerDto findByUrl(String url) {
+    public UrlShortenerDto findByUrl(String originalUrl) {
         return query.select(
                 new QUrlShortenerDto(
-                        urlShortener.id,
                         urlShortener.url,
                         urlShortener.shortKey,
                         urlShortener.searchCount
                 ))
                 .from(urlShortener)
-                .where(urlEq(url))
+                .where(urlEq(originalUrl))
                 .fetchOne();
     }
-
 
     private BooleanExpression urlEq(String url) {
         if (url == null || url.equals("")) {
             return null;
         }
         return urlShortener.url.eq(url);
+    }
+
+    private BooleanExpression shortKeyEq(String shortKey) {
+        if (shortKey == null || shortKey.equals("")) {
+            return null;
+        }
+        return urlShortener.shortKey.eq(shortKey);
     }
 }

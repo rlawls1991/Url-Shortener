@@ -40,7 +40,7 @@ public class UrlShortenerApiController {
         return new ResponseEntity<>(urlShortenerService.createUrlShortener(urlShortenerDto), HttpStatus.CREATED);
     }
 
-    private ResponseEntity<?> badRequest(Errors errors) {
+    private ResponseEntity badRequest(Errors errors) {
         return ResponseEntity.badRequest().body(new ErrorResponseMessage(errors));
     }
 }

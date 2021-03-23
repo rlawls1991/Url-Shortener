@@ -4,5 +4,10 @@ import com.urlshortener.doamin.dto.UrlShortenerDto;
 
 public interface UrlShortenerRepositoryCustom {
 
-    UrlShortenerDto findByUrl(String url);
+    /**
+     * originalUrl를 기준으로 UrlShort 찾기
+     * @param originalUrl
+     * @return
+     */
+    UrlShortenerDto findByUrl(String originalUrl);
 }

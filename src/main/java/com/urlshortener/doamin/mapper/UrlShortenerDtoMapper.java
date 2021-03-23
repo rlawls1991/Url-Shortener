@@ -8,10 +8,12 @@ public class UrlShortenerDtoMapper {
     private static final String DEFAULT_URL = "http://localhost:8080";
 
     public static UrlShortenerDto mapperDto(UrlShortener urlShortener) {
-       return UrlShortenerDto.createUrlShortenerDto(urlShortener, attach(urlShortener.getShortKey()));
+        UrlShortenerDto urlShortenerDto = UrlShortenerDto.createUrlShortenerDto(urlShortener, attach(urlShortener.getShortKey()));
+
+        return urlShortenerDto;
     }
 
-    public static String attach(String shortKey){
+    public static String attach(String shortKey) {
         return DEFAULT_URL + "/" + shortKey;
     }
 }

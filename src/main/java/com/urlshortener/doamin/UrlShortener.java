@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "member")
+@Table(name = "url_shortener")
 @AllArgsConstructor
 @NoArgsConstructor
 public class UrlShortener {
@@ -42,7 +42,11 @@ public class UrlShortener {
         this.shortKey = shortKey;
     }
 
-    public static UrlShortener createUrlShortener(String url, String shortKey){
+    public void addSearchCount() {
+        this.searchCount = this.searchCount + 1;
+    }
+
+    public static UrlShortener createUrlShortener(String url, String shortKey) {
         return new UrlShortener(url, shortKey);
     }
 }

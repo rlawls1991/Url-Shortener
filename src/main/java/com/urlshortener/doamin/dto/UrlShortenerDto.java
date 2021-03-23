@@ -6,15 +6,13 @@ import lombok.Getter;
 
 @Getter
 public class UrlShortenerDto {
-
-    private Long id;
     private String originalUrl; // 처음받은 URL
     private String shortUrl; // 줄인 URL
     private String shortKey; // shortKey
     private Long searchCount;
 
     @QueryProjection
-    public UrlShortenerDto(Long id,String originalUrl, String shortKey, Long searchCount) {
+    public UrlShortenerDto(String originalUrl, String shortKey, Long searchCount) {
         this.originalUrl = originalUrl;
         this.shortKey = shortKey;
         this.searchCount = searchCount;
