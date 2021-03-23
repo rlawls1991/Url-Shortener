@@ -1,6 +1,7 @@
 package com.urlshortener.doamin.service;
 
 import com.urlshortener.controller.dto.UrlShortenerParamDto;
+import com.urlshortener.controller.exception.ShortUrlNotFoundException;
 import com.urlshortener.doamin.UrlShortener;
 import com.urlshortener.doamin.dto.UrlShortenerDto;
 import com.urlshortener.doamin.mapper.UrlShortenerDtoMapper;
@@ -23,6 +24,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         String url = urlShortenerParamDto.getUrl();
         UrlShortenerDto urlShortenerDto = urlShortenerRepository.findByUrl(url);
 
+        // 해당 URL이 존재하지 않는다면 생성
         if (urlShortenerDto == null) {
             String shortKey = UrlEncoder.encoding(Long.valueOf(url.length()));
             UrlShortener createUrlShortener = UrlShortener.createUrlShortener(url, shortKey);
@@ -32,5 +34,19 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         }
 
         return urlShortenerDto;
+    }
+
+    @Override
+    public UrlShortenerDto findByShortKey(String shortKey) {
+        UrlShortener urlShortener = urlShortenerRepository.findByShortKey(shortKey);
+
+        if(urlShortener == null){
+            throw new ShortUrlNotFoundException("해당 URL은 존재하지 않습니다.");
+        }
+
+        // 조회횟수 1증가
+        urlShortener.addSearchCount();
+
+        return UrlShortenerDtoMapper.mapperDto(urlShortener);
     }
 }
