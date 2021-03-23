@@ -22,7 +22,7 @@ public class UrlShortenerControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ShortUrlNotFoundException.class)
     public String ShortUrlNotFoundHandler(ShortUrlNotFoundException e, HttpServletRequest request) {
-        log.info(e.getMessage());
+        log.info("URL을 잘못 입력하셨습니다.");
         log.info(String.valueOf(request.getRequestURL()));
         return "error/shortUrlNotFoundPage";
     }
