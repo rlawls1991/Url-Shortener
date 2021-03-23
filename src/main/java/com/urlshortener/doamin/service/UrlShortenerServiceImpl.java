@@ -26,21 +26,23 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
 
         // 해당 URL이 존재하지 않는다면 생성
         if (urlShortenerDto == null) {
-            String shortKey = UrlEncoder.encoding(Long.valueOf(url.length()));
-            UrlShortener createUrlShortener = UrlShortener.createUrlShortener(url, shortKey);
+            UrlShortener createUrlShortener = UrlShortener.createUrlShortener(url);
             urlShortenerRepository.save(createUrlShortener);
+            String shortKey = UrlEncoder.encoding(createUrlShortener.getId());
+            createUrlShortener.addShortKey(shortKey);
 
             return UrlShortenerDtoMapper.mapperDto(createUrlShortener);
         }
 
-        return urlShortenerDto;
+        return UrlShortenerDtoMapper.mapperDto(urlShortenerDto);
     }
 
     @Override
+    @Transactional
     public UrlShortenerDto findByShortKey(String shortKey) {
         UrlShortener urlShortener = urlShortenerRepository.findByShortKey(shortKey);
 
-        if(urlShortener == null){
+        if (urlShortener == null) {
             throw new ShortUrlNotFoundException("해당 URL은 존재하지 않습니다.");
         }
 

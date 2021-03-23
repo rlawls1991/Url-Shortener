@@ -28,17 +28,10 @@ public class UrlShortenerRepositoryCustomImpl implements UrlShortenerRepositoryC
                 .fetchOne();
     }
 
-    private BooleanExpression urlEq(String url) {
-        if (url == null || url.equals("")) {
+    private BooleanExpression urlEq(String originalUrl) {
+        if (originalUrl == null || originalUrl.equals("")) {
             return null;
         }
-        return urlShortener.url.eq(url);
-    }
-
-    private BooleanExpression shortKeyEq(String shortKey) {
-        if (shortKey == null || shortKey.equals("")) {
-            return null;
-        }
-        return urlShortener.shortKey.eq(shortKey);
+        return urlShortener.url.eq(originalUrl);
     }
 }

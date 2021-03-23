@@ -25,6 +25,10 @@ public class UrlShortenerDto {
         this.searchCount = searchCount;
     }
 
+    public void setShortUrl(String shortUrl){
+        this.shortUrl = shortUrl;
+    }
+
     public static UrlShortenerDto createUrlShortenerDto(UrlShortener urlShortener, String shortUrl) {
         return new UrlShortenerDto(urlShortener.getUrl(), shortUrl, urlShortener.getShortKey(), urlShortener.getSearchCount());
     }

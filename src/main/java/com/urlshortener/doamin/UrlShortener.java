@@ -1,9 +1,6 @@
 package com.urlshortener.doamin;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,14 +12,15 @@ import java.time.LocalDateTime;
 @Table(name = "url_shortener")
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UrlShortener {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
-    private String url;
     @Column(nullable = false, unique = true)
+    private String url;
+    @Column
     private String shortKey;
 
     @Column(name = "search_count")
@@ -42,11 +40,19 @@ public class UrlShortener {
         this.shortKey = shortKey;
     }
 
-    public void addSearchCount() {
-        this.searchCount = this.searchCount + 1;
+    private UrlShortener(String url) {
+        this.url = url;
     }
 
-    public static UrlShortener createUrlShortener(String url, String shortKey) {
-        return new UrlShortener(url, shortKey);
+    public void addSearchCount() {
+        this.searchCount = this.searchCount + 1L;
+    }
+
+    public void addShortKey(String shortKey) {
+        this.shortKey = shortKey;
+    }
+
+    public static UrlShortener createUrlShortener(String url) {
+        return new UrlShortener(url);
     }
 }

@@ -13,6 +13,11 @@ public class UrlShortenerDtoMapper {
         return urlShortenerDto;
     }
 
+    public static UrlShortenerDto mapperDto(UrlShortenerDto urlShortenerDto) {
+        urlShortenerDto.setShortUrl(attach(urlShortenerDto.getShortKey()));
+        return urlShortenerDto;
+    }
+
     public static String attach(String shortKey) {
         return DEFAULT_URL + "/" + shortKey;
     }
