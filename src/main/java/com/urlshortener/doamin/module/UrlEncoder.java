@@ -1,5 +1,7 @@
 package com.urlshortener.doamin.module;
 
+import com.urlshortener.doamin.exception.ShortKeyOutLengthException;
+
 public class UrlEncoder {
 
     private final static int BASE62 = 62;
@@ -14,6 +16,10 @@ public class UrlEncoder {
         while (param > 0) {
             sb.append(BASE62_CHAR.charAt((int) (param % BASE62)));
             param /= BASE62;
+        }
+
+        if(sb.length() > 8){
+            throw new ShortKeyOutLengthException("ShortKey의 최대 길이는 9글자입니다.");
         }
         return sb.toString();
     }
