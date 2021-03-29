@@ -21,7 +21,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
     @Override
     @Transactional
     public UrlShortenerDto createUrlShortener(UrlShortenerParamDto urlShortenerParamDto) {
-        String url = urlShortenerParamDto.getUrl();
+        String url = urlShortenerParamDto.getUrl().trim();
         UrlShortenerDto urlShortenerDto = urlShortenerRepository.findByUrl(url);
 
         // 해당 URL이 존재하지 않는다면 생성
