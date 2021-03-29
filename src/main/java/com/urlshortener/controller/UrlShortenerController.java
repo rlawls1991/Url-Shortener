@@ -28,7 +28,7 @@ public class UrlShortenerController {
 
     @GetMapping("/{shortKey:[0-9a-zA-Z]+}")
     private String redirectTo(@PathVariable("shortKey") String shortKey) {
-        UrlShortenerDto urlShortenerDto = urlShortenerService.findByShortKey(shortKey);
+        UrlShortenerDto urlShortenerDto = urlShortenerService.findByShortKey(shortKey.trim());
         return "redirect:" + urlShortenerDto.getOriginalUrl();
     }
 }
